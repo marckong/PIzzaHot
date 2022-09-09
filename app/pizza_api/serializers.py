@@ -12,39 +12,39 @@ class PizzaSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "toppings", "topping"]
 
 
-class PizzaDetailSerializer(PizzaSerializer):
-    """Serializer for pizza detail view."""
+# class PizzaDetailSerializer(PizzaSerializer):
+#     """Serializer for pizza detail view."""
 
-    class Meta(PizzaSerializer.Meta):
-        fields = PizzaSerializer.Meta.fields + ["description"]
+#     class Meta(PizzaSerializer.Meta):
+#         fields = PizzaSerializer.Meta.fields + ["topping", "toppings", "id"]
 
-    def _get_or_create_toppings(self, toppings, pizza):
-        """Handle getting or creating toppings as needed."""
-        auth_user = self.context["request"].user
-        for topping in toppings:
-            topping_obj, created = Toppings.objects.get_or_create(
-                user=auth_user,
-                **topping,
-            )
-            pizza.toppings.add(topping_obj)
+#     def _get_or_create_toppings(self, toppings, pizza):
+#         """Handle getting or creating toppings as needed."""
+#         auth_user = self.context["request"].user
+#         for topping in toppings:
+#             topping_obj, created = Toppings.objects.get_or_create(
+#                 user=auth_user,
+#                 **topping,
+#             )
+#             pizza.toppings.add(topping_obj)
 
-    def create(self, validated_data):
-        """Create a pizza."""
-        toppings = validated_data.pop("toppings", [])
-        pizza = Pizza.objects.create(**validated_data)
-        self._get_or_create_toppings(toppings, pizza)
+#     def create(self, validated_data):
+#         """Create a pizza."""
+#         toppings = validated_data.pop("toppings", [])
+#         pizza = Pizza.objects.create(**validated_data)
+#         self._get_or_create_toppings(toppings, pizza)
 
-        return pizza
+#         return pizza
 
-    def update(self, instance, validated_data):
-        """Update pizza."""
-        toppings = validated_data.pop("toppings", None)
-        if toppings is not None:
-            instance.toppings.clear()
-            self._get_or_create_toppings(toppings, instance)
+#     def update(self, instance, validated_data):
+#         """Update pizza."""
+#         toppings = validated_data.pop("toppings", None)
+#         if toppings is not None:
+#             instance.toppings.clear()
+#             self._get_or_create_toppings(toppings, instance)
 
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
+#         for attr, value in validated_data.items():
+#             setattr(instance, attr, value)
 
-        instance.save()
-        return instance
+#         instance.save()
+#         return instance
