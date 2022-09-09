@@ -1,5 +1,4 @@
 from pizza_api.models import Toppings
-from pizza_api.deserialize import deserialize
 from rest_framework import serializers
 from pizza_api.models import Pizza
 from toppings_api.serializers import ToppingsSerializer
