@@ -15,6 +15,23 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Test
+        run: docker-compose run --rm app sh -c "python manage.py test"
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          DEBUG: ${{ secrets.DEBUG }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          SQL_ENGINE: ${{ secrets.SQL_ENGINE }}
+          SQL_HOST: ${{ secrets.SQL_HOST }}
+          SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
+          SQL_USER: ${{ secrets.SQL_USER }}
+          SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
+          SQL_PORT: ${{ secrets.SQL_PORT }}
+          DATABASE: ${{ secrets.DATABASE }}
 
       - name: Lint
         run: docker-compose run --rm app sh -c "flake8"
