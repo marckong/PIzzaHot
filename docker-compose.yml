@@ -2,25 +2,36 @@ version: '3.8'
 
 services:
   web:
-    build: ./pizza
+    build:
+      context: .
+      args:
+        - DEV=true
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./pizza/:/usr/src/pizza/
+      - ./app/:/usr/src/app/
     ports:
       - 8000:8000
     env_file:
       - ./.env
+    environment:
+      - SQL_HOST=db
+      - SQL_DATABASE=devdb
+      - SQL_USER=root
+      - SQL_PASSWORD=root
     depends_on:
       - db
   db:
-    image: postgres:13.0-alpine
+    container_name: pg_container
+    image: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    restart: always
     environment:
-      - POSTGRES_USER=pizza
-      - POSTGRES_PASSWORD=pizza
-      - POSTGRES_DB=pizza
-
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: devdb
+    ports:
+      - "5432:5432"
   dbadmin:
     container_name: dbadmin
     image: dpage/pgadmin4
