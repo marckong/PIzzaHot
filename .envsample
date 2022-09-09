@@ -1,13 +1,15 @@
-POSTGRES_USER=hello_django
-POSTGRES_PASSWORD=hello_django
-POSTGRES_DB=hello_django_prod
-DEBUG=0
-SECRET_KEY=change_me
-DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+POSTGRES_USER=root
+POSTGRES_PASSWORD=root
+POSTGRES_DB=devdb
+
+DEBUG=1
+SECRET_KEY=foobar
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] 0.0.0.0
+DJANGO_SECRET_KEY=foobar
 SQL_ENGINE=django.db.backends.postgresql
-SQL_DATABASE=hello_django_prod
-SQL_USER=hello_django
-SQL_PASSWORD=hello_django
 SQL_HOST=db
+SQL_DATABASE=devdb
+SQL_USER=root
+SQL_PASSWORD=root
 SQL_PORT=5432
 DATABASE=postgres
