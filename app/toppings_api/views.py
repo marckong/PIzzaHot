@@ -1,9 +1,19 @@
-from django.shortcuts import render
-from app.toppings_api.models import Toppings
-from app.toppings_api.serializer import ToppingsSerializer
-from rest_framework.viewsets import ModelViewSet
+from pizza_api.models import Toppings
+from toppings_api.serializers import ToppingsSerializer
+from rest_framework import generics
 
-# Created a topping viewset
-class ToppingsViewSet(ModelViewSet):
+# Created a Toppings viewset
+class ToppingsList(generics.ListAPIView):
+    queryset = Toppings.objects.all()
+    serializer_class = ToppingsSerializer
+    
+class ToppingsCreate(generics.CreateAPIView):
+    queryset = Toppings.objects.all()
+    serializer_class = ToppingsSerializer
+    
+class ToppingsUpdate(generics.UpdateAPIView):
+    queryset = Toppings.objects.all()
+    serializer_class = ToppingsSerializer
+class ToppingsDelete(generics.DestroyAPIView):
     queryset = Toppings.objects.all()
     serializer_class = ToppingsSerializer

@@ -20,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
+SECRET_KEY = os.environ.get("SECRET_KEY", "changeme")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.environ.get('DEBUG', 0)))
+DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 
 # ALLOWED_HOSTS = []
 # ALLOWED_HOSTS.extend(
@@ -46,8 +46,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "pizza_api",
-    "pizza",  
+    "pizza",
     "drf_spectacular",
+    "toppings_api",
 ]
 
 MIDDLEWARE = [
@@ -130,17 +131,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/static/'
-MEDIA_URL = '/static/media/'
+STATIC_URL = "/static/static/"
+MEDIA_URL = "/static/media/"
 
-MEDIA_ROOT = '/vol/web/media'
-STATIC_ROOT = '/vol/web/static'
+MEDIA_ROOT = "/vol/web/media"
+STATIC_ROOT = "/vol/web/static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }

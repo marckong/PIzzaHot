@@ -7,19 +7,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from pizza_api.views import health_check
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
+    path("admin/", admin.site.urls),
+    path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
     path(
-        'api/docs/',
-        SpectacularSwaggerView.as_view(url_name='api-schema'),
-        name='api-docs',
+        "api/docs/",
+        SpectacularSwaggerView.as_view(url_name="api-schema"),
+        name="api-docs",
     ),
-    path('api/toppings/', include('pizza_api.urls')),
-    path('api/pizza/', include('pizza_api.urls')),
+    path("owner/", include("toppings_api.urls")),
+    path("chef/", include("pizza_api.urls")),
 ]
 
 if settings.DEBUG:

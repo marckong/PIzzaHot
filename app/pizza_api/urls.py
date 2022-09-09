@@ -1,11 +1,9 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
 
-from pizza_api.views import PizzaViewSet
-
-router = routers.DefaultRouter()
-router.register("pizzas", PizzaViewSet, "pizzas")
-
+from pizza_api.views import PizzaCreate, PizzaList, PizzaUpdate, PizzaDelete
 urlpatterns = [
-    path("pizzas/", include(router.urls)),
+    path('pizza/all',PizzaList.as_view()),
+    path('pizza/create',PizzaCreate.as_view()),
+    path('pizza/<int:pk>',PizzaUpdate.as_view()),
+    path('pizza/<int:pk>/delete',PizzaDelete.as_view()),
 ]

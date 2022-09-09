@@ -1,32 +1,14 @@
+from itertools import count
+from pizza_api.models import Toppings
+from pizza_api.deserialize import deserialize
 from rest_framework import serializers
 from pizza_api.models import Pizza
-from toppings_api.models import ToppingsSerializer
+from toppings_api.serializers import ToppingsSerializer
 
-        
+
 class PizzaSerializer(serializers.ModelSerializer):
-    toppings = ToppingsSerializer(read_only=True, many=True)
+    topping = ToppingsSerializer(read_only=True, many=True, source='toppings')
 
     class Meta:
         model = Pizza
-        fields = ('toppings')
-        
-    def create(self, validated_data):
-        request = self.context['request']
-
-        toppings_data = request.data.get('toppings')
-        validated_data['toppings'] = toppings_data
-        # create toppings object
-        # toppings_objs = [Topping.objects.create(**data) for data in toppings_data]
-        # validated_data['toppings'] = toppings_objs
-        instance = super().create(validated_data)
-
-        return instance
-    
-    def update(self, instance, validated_data):
-        request = self.context['request']
-        toppings_data = request.data.get('toppings')
-        validated_data['toppings'] = toppings_data
-
-        instance = super().update(instance, validated_data)
-
-        return instance
+        fields = ["name", "topping", "toppings"]
