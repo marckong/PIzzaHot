@@ -11,21 +11,20 @@ WORKDIR /usr/src/app
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-EXPOSE 8000
+
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev \
-    && apk add --no-cache \
-        uwsgi-python3 \
-        python3
+    && apk add postgresql-dev gcc python3-dev musl-dev
 
 # lint
 RUN pip install --upgrade pip
+RUN pip install flake8==3.9.2
 COPY . .
+RUN flake8 --ignore=E501,F401 .
 
 # install dependencies
 COPY ./requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app wheels -r requirements.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
 
 
 #########
@@ -48,14 +47,14 @@ RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/staticfiles
 RUN mkdir $APP_HOME/mediafiles
 WORKDIR $APP_HOME
-EXPOSE 8000
+
 # install dependencies
 RUN apk update && apk add libpq
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
-# copy entrypointsh
+# copy entrypoint.sh
 COPY ./entrypoint.sh .
 RUN sed -i 's/\r$//g'  $APP_HOME/entrypoint.sh
 RUN chmod +x  $APP_HOME/entrypoint.sh
@@ -69,5 +68,5 @@ RUN chown -R app:app $APP_HOME
 # change to the app user
 USER app
 
-# run entrypoint.prod.sh
+# run entrypoint.sh
 ENTRYPOINT ["/home/app/web/entrypoint.sh"]
