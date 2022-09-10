@@ -5,7 +5,8 @@ services:
     build: .
     restart: always
     volumes:
-      - ./app/:/usr/src/app/
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
     env_file:
       - ./.env
     environment:
@@ -45,8 +46,10 @@ services:
     ports:
       - 80:8000
     volumes:
-      - static-data:/vol/static
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
 
 volumes:
   postgres_data:
-  static-data:
+  static_volume:
+  media_volume:
