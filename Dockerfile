@@ -14,13 +14,14 @@ ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+    && apk add postgresql-dev gcc python3-dev musl-dev \
+    && apk add --no-cache \
+        uwsgi-python3 \
+        python3
 
 # lint
 RUN pip install --upgrade pip
-RUN pip install flake8==3.9.2
 COPY . .
-RUN flake8 --ignore=E501,F401 .
 
 # install dependencies
 COPY ./requirements.txt .
