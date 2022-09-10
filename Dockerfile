@@ -6,7 +6,7 @@
 FROM python:3.9.6-alpine as builder
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/pizza
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
