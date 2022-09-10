@@ -3,10 +3,6 @@ version: '3.8'
 services:
   web:
     build: .
-    command: 
-      - python manage.py collectstatic --noinput
-      - python manage.py migrate
-      - uwsgi --socket :9000 --workers 4 --master --enable-threads --plugins python3 --module app.wsgi
     restart: always
     volumes:
       - static_volume:/home/app/web/staticfiles
