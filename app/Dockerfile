@@ -16,7 +16,6 @@ ENV PYTHONUNBUFFERED 1
 RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev \
     && apk add --no-cache \
-        uwsgi-python3 \
         python3
 
 # lint
