@@ -1,6 +1,3 @@
-upstream app {
-    server web:8000;
-}
 server {
     listen ${LISTEN_PORT};
 
