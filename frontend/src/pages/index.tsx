@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import Layout from '@/components/layout/Layout';
-import ButtonLink from '@/components/links/ButtonLink';
 
 import Vercel from '~/svg/Vercel.svg';
 
@@ -21,13 +20,6 @@ export default function HomePage() {
             <p className='mt-2 text-sm text-gray-800'>
       {' '}
             </p>
-
-            <ButtonLink className='mt-6' href='/components' variant='light'>
-              See all components
-            </ButtonLink>
-
-
-
           </div>
         </section>
       </main>
