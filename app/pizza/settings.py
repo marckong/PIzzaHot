@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "foobar")
 DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 # DEBUG=True
 
-
+CORS_ORIGIN_ALLOW_ALL = True
 # ALLOWED_HOSTS = []
 # ALLOWED_HOSTS.extend(
 #     filter(
