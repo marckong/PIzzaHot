@@ -1,12 +1,22 @@
-from pizza_api.models import Toppings
 from rest_framework import serializers
 from pizza_api.models import Pizza
-from toppings_api.serializers import ToppingsSerializer
 
+
+# class PizzaToppingSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = PizzaToppings
+#         fields = ["toppings"]
 
 class PizzaSerializer(serializers.ModelSerializer):
-    topping = ToppingsSerializer(read_only=True, many=True, source="toppings")
+    # toppings = ToppingsSerializer(many=True, source="topping")
 
     class Meta:
         model = Pizza
-        fields = ["id", "name", "toppings", "topping"]
+        fields = ["id", "name", "toppings"]
+    
+    # def create(self, validated_data):
+    #     toppings = validated_data.pop('topping')
+    #     pizza = Pizza.objects.create(**validated_data)
+    #     for topping_data in toppings:
+    #         PizzaToppings.objects.create(pizza=pizza, **topping_data)
+    #     return pizza
