@@ -4,20 +4,20 @@ import React, { useEffect, useState } from 'react';
 import API from '../components/layout/API';
 
 export default function Owner() {
-  const [topping, setTopping] = useState([]);
-  const [toppingName, setToppingName] = useState('');
+  const [pizza, setPizza] = useState([]);
+  const [pizzaName, setPizzaName] = useState('');
   const [error, setError] = useState('');
   const [displayError, setDisplayError] = useState(false);
   const [displaySuccess, setDisplaySuccess] = useState(false);
   const [displayDelete, setDisplayDelete] = useState(false);
   useEffect(() => {
-    allTopping();
+    allPizza();
     setDisplaySuccess(false);
   }, []);
-  const allTopping = () => {
-    API.get('owner/toppings')
+  const allPizza = () => {
+    API.get('chef/pizza')
       .then((res) => {
-        setTopping(res.data);
+        setPizza(res.data);
       })
       .catch((err) => {
         setError(err.response.data.message);
@@ -26,16 +26,16 @@ export default function Owner() {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
-  /* create handle submit function for a button to add new topping */
+  /* create handle submit function for a button to add new pizza */
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    API.post('owner/toppings/create', {
-      name: capitalizeFirstLetter(toppingName),
+    API.post('owner/pizzas/create', {
+      name: capitalizeFirstLetter(pizzaName),
     })
       .then((res) => {
-        setToppingName('');
-        allTopping();
+        setPizzaName('');
+        allPizza();
         setDisplaySuccess(true);
         setTimeout(() => {
           setDisplaySuccess(false);
@@ -46,14 +46,14 @@ export default function Owner() {
         setTimeout(() => {
           setDisplayError(false);
         }, 4000);
-        setToppingName('');
+        setPizzaName('');
       });
   };
 
   const handleDelete = (id) => {
-    API.delete(`owner/toppings/${id}/delete`)
+    API.delete(`owner/pizzas/${id}/delete`)
       .then((res) => {
-        allTopping();
+        allPizza();
         setDisplayDelete(true);
         setTimeout(() => {
           setDisplayDelete(false);
@@ -68,41 +68,16 @@ export default function Owner() {
   };
   return (
     <div className='mx-auto mt-20 flex flex-col text-center'>
-      <div className='mb-10 text-6xl'>Toppings</div>
+      <div className='mb-10 text-6xl'>Pizza</div>
       <div className='mb-10 flex flex-row items-center justify-center'>
-        <form className='space-x-2' onSubmit={handleSubmit}>
-          <input
-            type='text'
-            name='name'
-            text='text'
-            placeholder='Add Topping'
-            className='focus:border-blue100 ring-0 focus:outline-none focus:ring-0'
-            value={toppingName}
-            onChange={(e) => setToppingName(e.target.value)}
-          />
 
           <button
             className='rounded-xl border-2 hover:bg-yellow-100 border-yellow-400 p-3'
             type='submit'
           >
-            Add
+            Cick here to go create a pizza!
           </button>
-          <div className='text-left'>
-            {displaySuccess && (
-              <p className='my-2 text-lg font-semibold text-green-500'>
-                Topping added.
-              </p>
-            )}
-            {displayError && (
-              <p className='text-red-500'>
-                Oops! Cannot create duplicate topping. Please try again.
-              </p>
-            )}{' '}
-            {displayDelete && (
-              <p className='text-red-500'>Topping deleted successfully.</p>
-            )}
-          </div>
-        </form>
+
       </div>
       <div className='-my-2 overflow-x-auto'>
         <div className='inline-block py-2 align-middle sm:px-6 lg:px-8'>
@@ -131,20 +106,20 @@ export default function Owner() {
                 </tr>
               </thead>
               <tbody>
-                {topping
+                {pizza
                   .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((topping, toppingIdx) => (
+                  .map((pizza, pizzaIdx) => (
                     <tr
-                      key={topping.name}
+                      key={pizza.name}
                       className={
-                        toppingIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                        pizzaIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                       }
                     >
                       <td className='whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900'>
-                        {topping.name}
+                        {pizza.name}
                       </td>
                       <td className='whitespace-nowrap px-6 py-4 text-sm text-gray-500'>
-                        <Link href={`/toppings/${topping.id}`}>
+                        <Link href={`/pizzas/${pizza.id}`}>
                           <a className='text-indigo-600 hover:text-indigo-900'>
                             Edit
                           </a>
@@ -154,7 +129,7 @@ export default function Owner() {
                         <button
                           href='#'
                           className='text-indigo-600 hover:text-indigo-900'
-                          onClick={() => handleDelete(topping.id)}
+                          onClick={() => handleDelete(pizza.id)}
                         >
                           Delete
                         </button>

@@ -1,48 +1,62 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-import API from '@/components/layout/API';
+import API from '../../components/layout/API';
 export default function Topping() {
   const [topping, setTopping] = useState([]);
   const [toppingName, setToppingName] = useState('');
   const [error, setError] = useState('');
   const [displayError, setDisplayError] = useState(false);
+  const [displaySuccess, setDisplaySuccess] = useState(false);
 
   const router = useRouter();
+  const { id } = router.query;
+
   useEffect(() => {
-    API.get(`owner/toppings/${router.asPath}`)
+    API.get(`owner/toppings/view/${id}`)
       .then((res) => {
         setTopping(res.data);
       })
       .catch((err) => {
         setError(err.response.data.message);
       });
-  }, []);
-
+  }, [id, toppingName]);
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
   /* create handle submit function for a button to add new topping */
   const handleSubmit = (e) => {
     e.preventDefault();
-    API.post('owner/toppings/create', { name: toppingName })
+    API.put(`owner/toppings/${id}`, {
+      name: capitalizeFirstLetter(toppingName),
+    })
       .then((res) => {
         setToppingName('');
-        setDisplayError(false);
+        setDisplaySuccess(true);
+        setTimeout(() => {
+          setDisplaySuccess(false);
+        }, 4000);
       })
       .catch((err) => {
-        setError("Can't create duplicate topping");
         setDisplayError(true);
+        setTimeout(() => {
+          setDisplayError(false);
+        }, 4000);
+        setToppingName('');
       });
   };
 
   return (
     <div className='mx-auto mt-20 flex flex-col text-center'>
-      <div className='mb-10 text-6xl'>{topping.name}</div>
+      <div className='mb-10 text-4xl'>Edit topping: {topping.name}</div>
       <div className='mb-10 flex flex-row items-center justify-center'>
         <form className='space-x-2' onSubmit={handleSubmit}>
           <input
             type='text'
             name='name'
             text='text'
-            placeholder='Add Topping'
+            placeholder='Edit Topping'
             className='focus:border-blue100 ring-0 focus:outline-none focus:ring-0'
             value={toppingName}
             onChange={(e) => setToppingName(e.target.value)}
@@ -54,29 +68,25 @@ export default function Topping() {
           >
             Edit
           </button>
-          <div className='text-xl text-red-500'>
+          <div className='text-left'>
+            {displaySuccess && (
+              <p className='my-2 text-lg font-semibold text-green-500'>
+                Topping succesfully edited.
+              </p>
+            )}
             {displayError && (
-              <div className='text-xl text-red-500'>{error}</div>
+              <p className='text-red-500'>
+                Oops! Cannot create duplicate topping. Please try again.
+              </p>
             )}
           </div>
         </form>
       </div>
+      <Link href='/owner' passHref>
+        <a className='text-indigo-600 underline underline-offset-2 hover:text-indigo-900'>
+          Back to Toppings list
+        </a>
+      </Link>
     </div>
   );
-}
-{
-  /* const handleUpdate = (id) => {
-    API.post(`owner/toppings/${id}`, { name: toppingName })
-      .then((res) => {
-        setToppingName('');
-        allTopping();
-        setDisplayError(false);
-      })
-      .catch((err) => {
-        setError("Can't create duplicate topping");
-        setDisplayError(true);
-          const router = useRouter();
-  console.log(router.query);
-  return (
-  */
 }

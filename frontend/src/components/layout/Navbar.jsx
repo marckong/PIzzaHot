@@ -1,14 +1,21 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Fragment } from 'react';
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Chef', href: '/chef' },
   { name: 'Owner', href: '/owner' },
 ];
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
 export default function Nav() {
+  const router = useRouter();
+
   return (
-    <div className='z-50 w-full border-b bg-white mx-auto'>
+    <div className='z-50 mx-auto w-full border-b bg-white'>
       <Popover>
         <div className='relative px-4 pt-2 pb-2 sm:px-6 lg:px-8'>
           <nav
@@ -27,13 +34,21 @@ export default function Nav() {
             </div>
             <div className='hidden md:ml-10 md:block md:space-x-8 md:pr-4'>
               {navigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className='font-medium text-gray-500 hover:text-gray-900'
-                >
-                  {item.name}
-                </a>
+                <Link href={item.href} key={item.name} passHref>
+                  <a
+                    className={classNames(
+                      ' font-heavy px-1 text-lg',
+                      router.route === item.href
+                        ? 'border-yellow-600 text-yellow-600 border-b focus:text-yellow-600'
+                        : ' hover:border-yellow-600  hover:text-yellow-600 text-gray-600 hover:border-b'
+                    )}
+                    aria-current={
+                      router.route === item.href ? 'page' : undefined
+                    }
+                  >
+                    {item.name}
+                  </a>
+                </Link>
               ))}
             </div>
           </nav>

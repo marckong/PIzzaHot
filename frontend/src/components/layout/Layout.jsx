@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Nav from './Navbar';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }) {
   return (
     <>
       <nav className='fixed top-0 z-50 w-full'>
