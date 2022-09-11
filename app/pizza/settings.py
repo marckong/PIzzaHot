@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "foobar")
 DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 # DEBUG=True
 
-CORS_ORIGIN_ALLOW_ALL = True
+
 # ALLOWED_HOSTS = []
 # ALLOWED_HOSTS.extend(
 #     filter(
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "pizza",
     "drf_spectacular",
     "toppings_api",
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -59,11 +60,14 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = "pizza.urls"
 
 TEMPLATES = [

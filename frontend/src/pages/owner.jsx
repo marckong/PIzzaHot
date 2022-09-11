@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import API from '@/components/layout/API';
 
-
 export default function Owner() {
   const [topping, setTopping] = useState([]);
 
@@ -10,25 +9,25 @@ export default function Owner() {
     allTopping();
   }, []);
   const allTopping = () => {
-    API.get('/owner/toppings')
+    API.get('owner/toppings')
       .then((res) => {
         setTopping(res.data);
       })
       .catch(console.error);
   };
 
-  const onSubmit = (e: { preventDefault: () => void; }) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const item = { name };
     API.post('/owner/toppings/create', item).then(() => allTopping());
   };
 
-  const onUpdate = (id: any) => {
+  const onUpdate = (id) => {
     const item = { name };
     API.patch(`/${id}/`, item).then((res) => allTopping());
   };
 
-  const onDelete = (id: any) => {
+  const onDelete = (id) => {
     API.delete(`/${id}/`).then((res) => allTopping());
   };
   return (
@@ -75,7 +74,7 @@ export default function Owner() {
                     className={toppingIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
                   >
                     <td className='whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900'>
-                      {topping}
+                      {topping.name}
                     </td>
                     <td className='whitespace-nowrap px-6 py-4 text-sm text-gray-500'>
                       <a
