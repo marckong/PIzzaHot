@@ -52,7 +52,7 @@ export default function Topping() {
             className='rounded-xl border-2 border-yellow-400 p-3'
             type='submit'
           >
-            Add
+            Edit
           </button>
           <div className='text-xl text-red-500'>
             {displayError && (

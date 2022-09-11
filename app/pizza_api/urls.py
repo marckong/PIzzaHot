@@ -6,6 +6,6 @@ urlpatterns = [
     path("pizza", PizzaList.as_view()),
     path("pizza/create", PizzaCreate.as_view()),
     path("pizza/<int:pk>", PizzaUpdate.as_view()),
-    path("pizza/?=<int:pk>", PizzaDetail.as_view()),
+    path("pizza/view/<int:pk>", PizzaDetail.as_view()),
     path("pizza/<int:pk>/delete", PizzaDelete.as_view()),
 ]
