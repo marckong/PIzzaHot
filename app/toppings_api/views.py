@@ -24,9 +24,11 @@ class ToppingsList(generics.ListAPIView):
     queryset = Toppings.objects.all()
     serializer_class = ToppingsSerializer
 
+
 class ToppingsDetail(generics.RetrieveAPIView):
     queryset = Toppings.objects.all()
     serializer_class = ToppingsSerializer
+
 
 class ToppingsCreate(generics.CreateAPIView):
     queryset = Toppings.objects.all()

@@ -7,7 +7,6 @@ export default function Topping() {
   const [toppingName, setToppingName] = useState('');
   const [error, setError] = useState('');
   const [displayError, setDisplayError] = useState(false);
-  const [edit, setEdit] = useState(false);
 
   const router = useRouter();
   useEffect(() => {
@@ -36,7 +35,7 @@ export default function Topping() {
 
   return (
     <div className='mx-auto mt-20 flex flex-col text-center'>
-      <div className='mb-10 text-6xl'>{topping}</div>
+      <div className='mb-10 text-6xl'>{topping.name}</div>
       <div className='mb-10 flex flex-row items-center justify-center'>
         <form className='space-x-2' onSubmit={handleSubmit}>
           <input

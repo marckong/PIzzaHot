@@ -141,8 +141,6 @@ DEFAULT_HEADERS = list(default_headers) + [
     "content-type",
     "contenttype",
     "contentType",
-
-
     "accept",
     "authorization",
     "dnt",
@@ -150,8 +148,6 @@ DEFAULT_HEADERS = list(default_headers) + [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
-
     "accept-encoding",
-
     "Contentype",
 ]

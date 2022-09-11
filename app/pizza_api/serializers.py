@@ -7,13 +7,14 @@ from pizza_api.models import Pizza
 #         model = PizzaToppings
 #         fields = ["toppings"]
 
+
 class PizzaSerializer(serializers.ModelSerializer):
     # toppings = ToppingsSerializer(many=True, source="topping")
 
     class Meta:
         model = Pizza
         fields = ["id", "name", "toppings"]
-    
+
     # def create(self, validated_data):
     #     toppings = validated_data.pop('topping')
     #     pizza = Pizza.objects.create(**validated_data)

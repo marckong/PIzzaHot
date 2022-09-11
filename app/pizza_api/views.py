@@ -24,9 +24,11 @@ class PizzaList(generics.ListAPIView):
     queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer
 
+
 class PizzaDetail(generics.RetrieveAPIView):
     queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer
+
 
 class PizzaCreate(generics.CreateAPIView):
     queryset = Pizza.objects.all()

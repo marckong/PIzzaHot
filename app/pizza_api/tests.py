@@ -46,9 +46,7 @@ class PizzaTest(TestCase):
     # Delete a valid single pizzas
     def test_delete_valid_single_pizzas(self):
         """The delete test is not working. I believe it to be due to the fact that the response payload is in strange formatting. I need to look into fixing the formatting.Delete is working in development. Will continue to look into this."""
-        response = self.client.delete(
-            "/chef/pizza/2/delete",{"name": "pepperoni"}
-        )
+        response = self.client.delete("/chef/pizza/2/delete", {"name": "pepperoni"})
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     # Delete an invalid single pizzas
