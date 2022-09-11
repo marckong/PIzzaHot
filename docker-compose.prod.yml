@@ -3,19 +3,18 @@ services:
   web:
     build:
       context: ./app
-    image: 626000002107.dkr.ecr.us-west-1.amazonaws.com/pizza:web
-    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn pizza.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
     expose:
       - 8000
     env_file:
-      - ./.env
+      - ./.env.staging
   nginx-proxy:
     container_name: nginx-proxy
     build: nginx
-    image: 626000002107.dkr.ecr.us-west-1.amazonaws.com/pizza:nginx-proxy
+
     restart: always
     ports:
       - 443:443
