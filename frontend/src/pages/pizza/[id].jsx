@@ -1,21 +1,39 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { MultiSelect } from 'react-multi-select-component';
 
-import API from '../components/layout/API';
+import API from '../../components/layout/API';
 
-export default function Owner() {
+export default function EditPizza() {
   const [pizzaName, setPizzaName] = useState('');
-  const [error, setError] = useState('');
-  const [displayError, setDisplayError] = useState(false);
   const [displaySuccess, setDisplaySuccess] = useState(false);
   const [topping, setTopping] = useState([]);
   const [selected, setSelected] = useState([]);
   const [noValue, setNoValue] = useState(false);
+  const [toppingName, setToppingName] = useState('');
+  const [error, setError] = useState('');
+  const [displayError, setDisplayError] = useState(false);
+  const [pizza, setPizza] = useState([]);
+
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
+    allPizza();
     allTopping();
-  }, []);
+  }, [id, pizzaName]);
+
+  const allPizza = () => {
+    API.get(`chef/pizza/view/${id}`)
+      .then((res) => {
+        setPizza(res.data);
+      })
+      .catch((err) => {
+        setError(err.response.data.message);
+      });
+  };
+
   const allTopping = () => {
     API.get('owner/toppings')
       .then((res) => {
@@ -25,16 +43,27 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
+
+  const toppingsFromPizza = (pizza) => {
+    let newName = [];
+    for (let i = 0; i < pizza.toppings?.length; i++) {
+      for (let j = 0; j < topping.length; j++) {
+        if (pizza.toppings[i] === topping[j].id) {
+          newName += ', ' + topping[j].name;
+        }
+      }
+    }
+    return newName.toString().replace(',', '');
+  };
+  const selectedToppings = selected.map((topping) => {
+    return topping.value;
+  });
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
   const options = topping.map((topping) => {
     // return a list of objects with label and value
     return { label: topping.name, value: topping.id };
-  });
-  //iterate through the selected array and return the value of each object
-  const selectedToppings = selected.map((topping) => {
-    return topping.value;
   });
   const handleError = () => {
     selected.length == 0 ? setNoValue(true) : setDisplayError(true);
@@ -43,12 +72,10 @@ export default function Owner() {
       setNoValue(false);
     }, 4000);
   };
-
-  /* create handle submit function for a button to add new pizza */
+  /* create handle submit function for a button to add new topping */
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    API.post('chef/pizza/create', {
+    API.put(`chef/pizza/${id}`, {
       name: capitalizeFirstLetter(pizzaName),
       toppings: selectedToppings,
     })
@@ -67,10 +94,9 @@ export default function Owner() {
         setSelected([]);
       });
   };
-
   return (
     <div className='mx-auto mt-20 items-center justify-center'>
-      <div className='mb-6 text-center text-6xl'>Create a Pizza</div>
+      <div className='mb-6 text-center text-6xl'>Edit Pizza: {pizza.name}</div>
       <div className='mb-10 text-center'>
         <Link href='/chef' passHref>
           <a className='text-indigo-600 underline underline-offset-2 hover:text-indigo-900'>
@@ -78,12 +104,15 @@ export default function Owner() {
           </a>
         </Link>
       </div>
-      <div className='mb-10 flex flex-row items-center '>
-        <div className=' mb-10 flex flex-row items-center '>
-          <form onSubmit={handleSubmit}>
-            <div className=' flex flex-row  justify-center space-x-6'>
+      <div className='mb-10 items-center '>
+        <div className=' mb-10 flex flex-col '>
+          <form
+            className='flex flex-col items-center justify-center'
+            onSubmit={handleSubmit}
+          >
+            <div className=' flex flex-col items-center justify-center  space-y-10 space-x-6'>
               <div className='flex  flex-col items-center'>
-                Pizza Name
+                Edit Pizza Name
                 <input
                   type='text'
                   name='name'
@@ -95,7 +124,10 @@ export default function Owner() {
                 />
               </div>
               <div className='flex flex-col  items-center'>
-                Select Toppings
+                <div className='mb-2'>Update Toppings</div>
+                <div className='mb-2'>
+                  Currently has:{toppingsFromPizza(pizza)}
+                </div>
                 <MultiSelect
                   options={options}
                   value={selected}
@@ -104,18 +136,18 @@ export default function Owner() {
                 />
               </div>
             </div>
-            <div className='mt-10'>
+            <div className='item mt-10'>
               <button
                 className='rounded-xl border-2 border-yellow-400 p-3 hover:bg-yellow-100'
                 type='submit'
               >
-                Create
+                Submit
               </button>
             </div>
             <div className='text-left'>
               {displaySuccess && (
                 <p className='my-2 text-lg font-semibold text-green-500'>
-                  Pizza created successfully.
+                  Pizza updated successfully.
                 </p>
               )}
               {displayError && (

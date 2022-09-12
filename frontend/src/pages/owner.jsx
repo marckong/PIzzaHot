@@ -96,9 +96,9 @@ export default function Owner() {
               <p className='text-red-500'>
                 Oops! Cannot create duplicate topping. Please try again.
               </p>
-            )}{' '}
+            )}
             {displayDelete && (
-              <p className='text-red-500'>Topping deleted successfully.</p>
+              <p className='text-red-500'>Pizza deleted successfully.</p>
             )}
           </div>
         </form>

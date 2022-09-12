@@ -24,13 +24,7 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
-  /*show all toppings in a list for each */
-  const pizzaToppings = () => {
-    return topping.map((topping) => {
-      return topping.name;
-    });
-  };
-  console.log(pizzaToppings);
+
   const allTopping = () => {
     API.get('owner/toppings')
       .then((res) => {
@@ -41,7 +35,7 @@ export default function Owner() {
       });
   };
   const handleDelete = (id) => {
-    API.delete(`owner/pizzas/${id}/delete`)
+    API.delete(`chef/pizza/${id}/delete`)
       .then((res) => {
         allPizza();
         setDisplayDelete(true);
@@ -56,7 +50,19 @@ export default function Owner() {
         }, 4000);
       });
   };
-  const handleToppings
+
+  const toppingsFromPizza = (pizza) => {
+    let newName = [];
+    for (let i = 0; i < pizza.toppings.length; i++) {
+      for (let j = 0; j < topping.length; j++) {
+        if (pizza.toppings[i] === topping[j].id) {
+          newName += ', ' + topping[j].name;
+        }
+      }
+    }
+    return newName.toString().replace(',', '');
+  };
+
   return (
     <div className='mx-auto mt-20 flex flex-col text-center'>
       <div className='mb-10 text-6xl'>Pizza</div>
@@ -70,6 +76,9 @@ export default function Owner() {
           </button>
         </a>
       </div>
+      {displayDelete && (
+        <p className='text-red-500'>Topping deleted successfully.</p>
+      )}
       <div className='-my-2 overflow-x-auto'>
         <div className='inline-block py-2 align-middle sm:px-6 lg:px-8'>
           <div className='overflow-hidden border-b border-gray-200 shadow sm:rounded-lg'>
@@ -114,10 +123,11 @@ export default function Owner() {
                         {pizza.name}
                       </td>
                       <td className='whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900'>
-                        {pizza.toppings.join(', ')}
+                        {toppingsFromPizza(pizza)}
+                        {/* {pizza.toppings} */}
                       </td>
                       <td className='whitespace-nowrap px-6 py-4 text-sm text-gray-500'>
-                        <Link href={`/pizzas/${pizza.id}`}>
+                        <Link href={`/pizza/${pizza.id}`}>
                           <a className='text-indigo-600 hover:text-indigo-900'>
                             Edit
                           </a>
