@@ -9,7 +9,7 @@ export default function Layout({ children }) {
         <Nav />
       </nav>
       <div className='layout mx-auto mt-10 flex flex-col min-h-screen'>
-      {children}
+        {children}
       </div>
     </>
   );

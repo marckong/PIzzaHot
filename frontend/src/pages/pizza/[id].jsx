@@ -11,7 +11,6 @@ export default function EditPizza() {
   const [topping, setTopping] = useState([]);
   const [selected, setSelected] = useState([]);
   const [noValue, setNoValue] = useState(false);
-  const [toppingName, setToppingName] = useState('');
   const [error, setError] = useState('');
   const [displayError, setDisplayError] = useState(false);
   const [pizza, setPizza] = useState([]);
