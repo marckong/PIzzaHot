@@ -42,9 +42,7 @@ Chef/Pizza:
 
 ## Local Install
 
-Two different methods are offered for local development. Either from scratch or with Docker. 
-
-### Ground Up Build
+Two different methods are offered for backend local development. Either from scratch or with Docker. 
 
 #### Backend
 1. install python 3.8.10 or higher. 
