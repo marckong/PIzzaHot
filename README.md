@@ -25,7 +25,6 @@ Technical specifications:
 ### API walkthrough
 
 Owner/Toppings:
- - https://strongmindpizza.vercel.app/owner/toppings
     * Create new topping /create
     * Edit topping /<pk:id>
     * View/get individual topping /<pk:id>
@@ -33,7 +32,6 @@ Owner/Toppings:
     * No duplicate toppings allowed
 
 Chef/Pizza:
- - https://strongmindpizza.vercel.app/chef/pizza
     * Create new pizza /create
     * Edit pizza name || toppings /<pk:id>
     * View/get individual pizza /<pk:id>
