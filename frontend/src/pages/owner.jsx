@@ -81,7 +81,7 @@ export default function Owner() {
           />
 
           <button
-            className='rounded-xl border-2 hover:bg-yellow-100 border-yellow-400 p-3'
+            className='rounded-xl border-2 border-yellow-400 p-3 hover:bg-yellow-100'
             type='submit'
           >
             Add
