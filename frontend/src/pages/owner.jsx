@@ -12,7 +12,6 @@ export default function Owner() {
   const [displayDelete, setDisplayDelete] = useState(false);
   useEffect(() => {
     allTopping();
-    setDisplaySuccess(false);
   }, []);
   const allTopping = () => {
     API.get('owner/toppings')

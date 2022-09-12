@@ -4,7 +4,7 @@ from django.db.models.signals import pre_delete
 
 class Pizza(models.Model):
     name = models.CharField(max_length=60, unique=True)
-    toppings = models.ManyToManyField("Toppings", max_length=60)
+    topping = models.ManyToManyField("Toppings", max_length=60)
     #
     # related_name="toppings"
     def __str__(self):

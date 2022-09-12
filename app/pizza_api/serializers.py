@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from pizza_api.models import Pizza
+from toppings_api.serializers import ToppingsSerializer
 
 
 # class PizzaToppingSerializer(serializers.ModelSerializer):
@@ -9,7 +10,7 @@ from pizza_api.models import Pizza
 
 
 class PizzaSerializer(serializers.ModelSerializer):
-    # toppings = ToppingsSerializer(many=True, source="topping")
+    toppings = ToppingsSerializer(many=True, source="topping")
 
     class Meta:
         model = Pizza

@@ -5,15 +5,16 @@ import API from '../components/layout/API';
 
 export default function Owner() {
   const [pizza, setPizza] = useState([]);
-  const [pizzaName, setPizzaName] = useState('');
   const [error, setError] = useState('');
   const [displayError, setDisplayError] = useState(false);
-  const [displaySuccess, setDisplaySuccess] = useState(false);
   const [displayDelete, setDisplayDelete] = useState(false);
+  const [topping, setTopping] = useState([]);
+
   useEffect(() => {
     allPizza();
-    setDisplaySuccess(false);
+    allTopping();
   }, []);
+
   const allPizza = () => {
     API.get('chef/pizza')
       .then((res) => {
@@ -23,33 +24,22 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
-  /* create handle submit function for a button to add new pizza */
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    API.post('owner/pizzas/create', {
-      name: capitalizeFirstLetter(pizzaName),
-    })
+  /*show all toppings in a list for each */
+  const pizzaToppings = () => {
+    return topping.map((topping) => {
+      return topping.name;
+    });
+  };
+  console.log(pizzaToppings);
+  const allTopping = () => {
+    API.get('owner/toppings')
       .then((res) => {
-        setPizzaName('');
-        allPizza();
-        setDisplaySuccess(true);
-        setTimeout(() => {
-          setDisplaySuccess(false);
-        }, 4000);
+        setTopping(res.data);
       })
       .catch((err) => {
-        setDisplayError(true);
-        setTimeout(() => {
-          setDisplayError(false);
-        }, 4000);
-        setPizzaName('');
+        setError(err.response.data.message);
       });
   };
-
   const handleDelete = (id) => {
     API.delete(`owner/pizzas/${id}/delete`)
       .then((res) => {
@@ -66,18 +56,19 @@ export default function Owner() {
         }, 4000);
       });
   };
+  const handleToppings
   return (
     <div className='mx-auto mt-20 flex flex-col text-center'>
       <div className='mb-10 text-6xl'>Pizza</div>
       <div className='mb-10 flex flex-row items-center justify-center'>
-
+        <a href='/createpizza'>
           <button
-            className='rounded-xl border-2 hover:bg-yellow-100 border-yellow-400 p-3'
+            className='rounded-xl border-2 border-yellow-400 p-3 hover:bg-yellow-100'
             type='submit'
           >
             Cick here to go create a pizza!
           </button>
-
+        </a>
       </div>
       <div className='-my-2 overflow-x-auto'>
         <div className='inline-block py-2 align-middle sm:px-6 lg:px-8'>
@@ -90,6 +81,12 @@ export default function Owner() {
                     className='px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500'
                   >
                     Name
+                  </th>
+                  <th
+                    scope='col'
+                    className='px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500'
+                  >
+                    Toppings
                   </th>
                   <th
                     scope='col'
@@ -111,12 +108,13 @@ export default function Owner() {
                   .map((pizza, pizzaIdx) => (
                     <tr
                       key={pizza.name}
-                      className={
-                        pizzaIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                      }
+                      className={pizzaIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
                     >
                       <td className='whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900'>
                         {pizza.name}
+                      </td>
+                      <td className='whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900'>
+                        {pizza.toppings.join(', ')}
                       </td>
                       <td className='whitespace-nowrap px-6 py-4 text-sm text-gray-500'>
                         <Link href={`/pizzas/${pizza.id}`}>
