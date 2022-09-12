@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import pizza from '/public/pizza.jpg';
 
 
@@ -23,12 +24,14 @@ export default function Home() {
               </p>
               <div className='mt-5 sm:mt-8 sm:flex sm:justify-center'>
                 <div className='rounded-md shadow'>
+                  <Link href='/owner'>
                   <a
-                    href='/owner'
+                    
                     className='flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium text-black hover:bg-yellow-700 md:py-4 md:px-10 md:text-lg'
                   >
                     Owner
                   </a>
+                  </Link>
                 </div>
                 <div className='mt-3 sm:mt-0 sm:ml-3'>
                   <a

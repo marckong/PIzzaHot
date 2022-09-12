@@ -67,14 +67,14 @@ export default function Owner() {
     <div className='mx-auto mt-20 flex flex-col text-center'>
       <div className='mb-10 text-6xl'>Pizza</div>
       <div className='mb-10 flex flex-row items-center justify-center'>
-        <a href='/createpizza'>
+        <Link href='/createpizza'>
           <button
             className='rounded-xl border-2 border-yellow-400 p-3 hover:bg-yellow-100'
             type='submit'
           >
             Cick here to go create a pizza!
           </button>
-        </a>
+        </Link>
       </div>
       {displayDelete && (
         <p className='text-red-500'>Topping deleted successfully.</p>
