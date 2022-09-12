@@ -19,6 +19,21 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
+  nginx-proxy:
+    container_name: nginx-proxy
+    build: nginx
+
+    restart: always
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - web
 
 volumes:
   static_volume:
