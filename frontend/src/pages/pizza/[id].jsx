@@ -22,7 +22,7 @@ export default function EditPizza() {
     allPizza();
     allTopping();
   }, [id, pizzaName]);
-
+//returns all pizza
   const allPizza = () => {
     API.get(`chef/pizza/view/${id}`)
       .then((res) => {
@@ -32,7 +32,7 @@ export default function EditPizza() {
         setError(err.response.data.message);
       });
   };
-
+//returns all toppings
   const allTopping = () => {
     API.get('owner/toppings')
       .then((res) => {
@@ -42,7 +42,7 @@ export default function EditPizza() {
         setError(err.response.data.message);
       });
   };
-
+//extracts the pizza toppings from the pizza object and finds the topping object that matches the pizza topping
   const toppingsFromPizza = (pizza) => {
     let newName = [];
     for (let i = 0; i < pizza.toppings?.length; i++) {
@@ -54,16 +54,20 @@ export default function EditPizza() {
     }
     return newName.toString().replace(',', '');
   };
+ //displays in drop down
   const selectedToppings = selected.map((topping) => {
     return topping.value;
   });
+ //Makes sure no duplicate entries
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
+
+  // return a list of objects with label and value
   const options = topping.map((topping) => {
-    // return a list of objects with label and value
     return { label: topping.name, value: topping.id };
   });
+
   const handleError = () => {
     selected.length == 0 ? setNoValue(true) : setDisplayError(true);
     setTimeout(() => {
@@ -71,7 +75,7 @@ export default function EditPizza() {
       setNoValue(false);
     }, 4000);
   };
-  /* create handle submit function for a button to add new topping */
+  /* create handle submit function for a button to add new pizza */
   const handleSubmit = (e) => {
     e.preventDefault();
     API.put(`chef/pizza/${id}`, {

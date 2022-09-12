@@ -10,11 +10,12 @@ export default function Owner() {
   const [displayDelete, setDisplayDelete] = useState(false);
   const [topping, setTopping] = useState([]);
 
+  //loads all pizza and toppings
   useEffect(() => {
     allPizza();
     allTopping();
   }, []);
-
+//returns all pizza
   const allPizza = () => {
     API.get('chef/pizza')
       .then((res) => {
@@ -24,7 +25,7 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
-
+//returns all toppings
   const allTopping = () => {
     API.get('owner/toppings')
       .then((res) => {
@@ -50,7 +51,7 @@ export default function Owner() {
         }, 4000);
       });
   };
-
+// extracts the pizza toppings from the pizza object and finds the topping object that matches the topping id
   const toppingsFromPizza = (pizza) => {
     let newName = [];
     for (let i = 0; i < pizza.toppings.length; i++) {

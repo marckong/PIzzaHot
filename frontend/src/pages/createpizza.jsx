@@ -25,16 +25,19 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
-  const options = topping.map((topping) => {
-    // return a list of objects with label and value
-    return { label: topping.name, value: topping.id };
-  });
+ 
   //iterate through the selected array and return the value of each object
   const selectedToppings = selected.map((topping) => {
     return topping.value;
+  });
+
+  //Makes sure no duplicate entries
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+  // return a list of objects with label and value
+  const options = topping.map((topping) => {
+    return { label: topping.name, value: topping.id };
   });
   const handleError = () => {
     selected.length == 0 ? setNoValue(true) : setDisplayError(true);

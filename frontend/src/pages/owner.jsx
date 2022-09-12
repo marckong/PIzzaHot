@@ -10,9 +10,11 @@ export default function Owner() {
   const [displayError, setDisplayError] = useState(false);
   const [displaySuccess, setDisplaySuccess] = useState(false);
   const [displayDelete, setDisplayDelete] = useState(false);
+
   useEffect(() => {
     allTopping();
   }, []);
+  //returns all toppings
   const allTopping = () => {
     API.get('owner/toppings')
       .then((res) => {
@@ -22,6 +24,7 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
+  //makes sure no duplicate entries
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }

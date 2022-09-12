@@ -13,6 +13,7 @@ export default function Topping() {
   const router = useRouter();
   const { id } = router.query;
 
+//loads the selected topping given pk id
   useEffect(() => {
     API.get(`owner/toppings/view/${id}`)
       .then((res) => {
@@ -22,7 +23,9 @@ export default function Topping() {
         setError(err.response.data.message);
       });
   }, [id, toppingName]);
-  function capitalizeFirstLetter(string) {
+
+  //Makes sure that there are no duplicate toppings
+function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
   /* create handle submit function for a button to add new topping */
