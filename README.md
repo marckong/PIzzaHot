@@ -6,7 +6,7 @@ StrongMind Pizza is an application that assists both the owner of a restaurant a
 
 Visit the site here: [StrongMindPizza](https://strongmindpizza.vercel.app/).
 
-Visit the API docs here: [OpenAPI] (https://desolate-inlet-48037.herokuapp.com/api/docs/).
+Visit the API docs here: [OpenAPI](https://desolate-inlet-48037.herokuapp.com/api/docs/).
 
 ## Technical Summary
 SMPizza offeres two different REST APIs. One for the owner, and the other for the chef.
