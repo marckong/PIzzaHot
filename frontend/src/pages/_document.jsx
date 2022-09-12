@@ -17,6 +17,10 @@ class MyDocument extends Document {
             type='font/woff2'
             crossOrigin='anonymous'
           />
+          <meta
+            httpEquiv='Content-Security-Policy'
+            content='upgrade-insecure-requests'
+          ></meta>
         </Head>
         <body>
           <Main />
