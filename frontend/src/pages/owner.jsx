@@ -98,7 +98,7 @@ export default function Owner() {
               </p>
             )}
             {displayDelete && (
-              <p className='text-red-500'>Pizza deleted successfully.</p>
+              <p className='text-red-500'>Topping deleted successfully.</p>
             )}
           </div>
         </form>
