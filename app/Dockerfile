@@ -1,7 +1,3 @@
-###########
-# BUILDER #
-###########
-
 # pull official base image
 FROM python:3.9.6-alpine as builder
 
@@ -26,10 +22,6 @@ COPY . .
 COPY ./requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
 
-
-#########
-# FINAL #
-#########
 
 # pull official base image
 FROM python:3.9.6-alpine

@@ -25,21 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "foobar"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG=True
+DEBUG = False
 
-# ALLOWED_HOSTS = []
-# ALLOWED_HOSTS.extend(
-#     filter(
-#         None,
-#         os.environ.get('ALLOWED_HOSTS', '').split(' '),
-#     )
-# )
-# 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
-# For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['*']
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -107,8 +95,8 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -140,20 +128,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-# STATIC_URL = "/static/"
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# MEDIA_URL = "/media/"
-# MEDIA_ROOT = BASE_DIR / "mediafiles"
-# The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = 'staticfiles'
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -161,8 +140,9 @@ STATICFILES_DIRS = (
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
