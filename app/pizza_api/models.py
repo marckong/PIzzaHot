@@ -4,11 +4,11 @@ from django.db.models.signals import pre_delete
 
 class Pizza(models.Model):
     name = models.CharField(max_length=60, unique=True)
-    topping = models.ManyToManyField("Toppings", max_length=60)
+    toppings = models.ManyToManyField("Toppings", max_length=60)
     #
     # related_name="toppings"
     def __str__(self):
-        return self.name
+        return self.name, self.toppings
 
 
 class Toppings(models.Model):
