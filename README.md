@@ -27,25 +27,25 @@ Technical specifications:
 
 Owner/Toppings:
 
-* Create new topping /create
+* Create new topping: /owner/toppings/create
 
-* Edit topping /<pk:id>
+* Edit topping: /owner/toppings/<pk:id>
 
-* View/get individual topping /<pk:id>
+* View/get individual topping: /owner/toppings/<pk:id>
 
-* Delete topping /<pk:id>/delete
+* Delete topping: /owner/toppings/<pk:id>/delete
 
 * No duplicate toppings allowed
 
 Chef/Pizza:
 
-* Create new pizza /create
+* Create new pizza: chef/pizza/create
 
-* Edit pizza name or toppings /<pk:id>
+* Edit pizza name or toppings: chef/pizza/<pk:id>
 
-* View/get individual pizza /<pk:id>
+* View/get individual pizza: chef/pizza/<pk:id>
 
-* Delete pizza /<pk:id>/delete
+* Delete pizza: chef/pizza/<pk:id>/delete
 
 * No duplicate pizzas allowed
 
