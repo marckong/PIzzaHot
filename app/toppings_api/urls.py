@@ -5,7 +5,7 @@ from toppings_api.views import (
     ToppingsList,
     ToppingsUpdate,
     ToppingsDelete,
-    ToppingsDetail
+    ToppingsDetail,
 )
 
 urlpatterns = [

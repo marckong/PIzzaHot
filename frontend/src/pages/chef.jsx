@@ -15,7 +15,7 @@ export default function Owner() {
     allPizza();
     allTopping();
   }, []);
-//returns all pizza
+  //returns all pizza
   const allPizza = () => {
     API.get('chef/pizza')
       .then((res) => {
@@ -25,7 +25,7 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
-//returns all toppings
+  //returns all toppings
   const allTopping = () => {
     API.get('owner/toppings')
       .then((res) => {
@@ -35,6 +35,7 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
+
   const handleDelete = (id) => {
     API.delete(`chef/pizza/${id}/delete`)
       .then((res) => {
@@ -51,7 +52,7 @@ export default function Owner() {
         }, 4000);
       });
   };
-// extracts the pizza toppings from the pizza object and finds the topping object that matches the topping id
+  // extracts the pizza toppings from the pizza object and finds the topping object that matches the topping id
   const toppingsFromPizza = (pizza) => {
     let newName = [];
     for (let i = 0; i < pizza.toppings.length; i++) {

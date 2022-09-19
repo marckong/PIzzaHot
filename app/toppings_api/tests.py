@@ -60,7 +60,7 @@ class ToppingsTest(TestCase):
 
     # Update a valid single topping
     def test_update_valid_single_topping(self):
-        """Unable to test the update method. It is working in development but not in the test. Need to investigate."""
+        """Current test is not working but it is working in dev, prod, and API tests. I believe I have just written the test incorrectly and am continuing to troubleshoot it. It should return a 200 status code and update the existing object in the database"""
         response = self.client.put(
             "/owner/toppings",
             {"id": 20, "name": "pepperoni"},

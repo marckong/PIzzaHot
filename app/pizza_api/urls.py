@@ -1,6 +1,12 @@
 from django.urls import path
 
-from pizza_api.views import PizzaCreate, PizzaList, PizzaUpdate, PizzaDelete, PizzaDetail
+from pizza_api.views import (
+    PizzaCreate,
+    PizzaList,
+    PizzaUpdate,
+    PizzaDelete,
+    PizzaDetail,
+)
 
 urlpatterns = [
     path("pizza", PizzaList.as_view()),

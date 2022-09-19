@@ -1,40 +1,41 @@
-from django.test import TestCase, Client
 from django.test import TestCase
-from pizza_api.models import Pizza
+from pizza_api.models import Pizza, Toppings
+from rest_framework.test import APIClient
 from pizza_api.serializers import PizzaSerializer
 from rest_framework import status
 
-client = Client()
+client = APIClient()
 
 
 class PizzaTest(TestCase):
+
     """Test module for Pizza model"""
 
     def setUp(self):
-        self.first = Pizza.objects.create(name="sausage")
-        self.second = Pizza.objects.create(name="olive")
-        self.valid_payload = {"name": "onion"}
+        self.valid_payload = {"name": "pepperoni", "toppings": [1]}
         self.invalid_payload = {"name": ""}
 
     # Get all pizza
     def test_get_all_pizza(self):
-        # get API response
+
+        """Should return all pizzas with id, name, and toppings"""
+
         response = self.client.get("/chef/pizza")
         pizzas = Pizza.objects.all()
         serializer = PizzaSerializer(pizzas, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    # Add a valid single pizzas
-    def test_add_valid_single_pizzas(self):
-        """The create test is not working. I believe it to be due to the fact that the response payload is in strange formatting. I need to look into fixing the formatting. Delete is working in development. Will continue to look into this."""
-        response = self.client.post(
-            "/chef/pizza/create", {"name": "pepperoni", "toppings": ["pepp"]}
-        )
+    def test_pizza_post(self):
+        """Current test is not working but it is working in dev, prod, and API tests. I believe I have just written the test incorrectly and am continuing to troubleshoot it. It should return a 201 status code and an object with the name of the pizzam, the toppings, and the id. Toppings should be an array of integers"""
+        response = self.client.post("/chef/pizza/create", self.valid_payload)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data["name"], "pepperoni")
+        self.assertEqual(response.data["toppings"], [1])
 
     # Add a duplicate single pizzas
     def test_add_invalid_single_pizzas(self):
+        """Should not allow duplicate pizzas to be added. It should return a 400 status code"""
         response = self.client.post(
             "/chef/pizza/create", {"id": 10, "name": "pepperoni"}
         )
@@ -45,7 +46,7 @@ class PizzaTest(TestCase):
 
     # Delete a valid single pizzas
     def test_delete_valid_single_pizzas(self):
-        """The delete test is not working. I believe it to be due to the fact that the response payload is in strange formatting. I need to look into fixing the formatting.Delete is working in development. Will continue to look into this."""
+        """Current test is not working but it is working in dev, prod, and API tests. I believe I have just written the test incorrectly and am continuing to troubleshoot it. It should return a 204 status code and remove the object from the database"""
         response = self.client.delete("/chef/pizza/2/delete", {"name": "pepperoni"})
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
@@ -56,7 +57,7 @@ class PizzaTest(TestCase):
 
     # Update a valid single pizzas
     def test_update_valid_single_pizzas(self):
-        """Unable to test the update method. It is working in development but not in the test. Need to investigate."""
+        """Current test is not working but it is working in dev, prod, and API tests. I believe I have just written the test incorrectly and am continuing to troubleshoot it. It should return a 200 status code and update the existing object in the database"""
         response = self.client.put(
             "/chef/pizza",
             {"id": 20, "name": "pepperoni"},

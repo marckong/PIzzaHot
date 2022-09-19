@@ -25,7 +25,7 @@ export default function Owner() {
         setError(err.response.data.message);
       });
   };
- 
+
   //iterate through the selected array and return the value of each object
   const selectedToppings = selected.map((topping) => {
     return topping.value;
@@ -39,6 +39,7 @@ export default function Owner() {
   const options = topping.map((topping) => {
     return { label: topping.name, value: topping.id };
   });
+
   const handleError = () => {
     selected.length == 0 ? setNoValue(true) : setDisplayError(true);
     setTimeout(() => {

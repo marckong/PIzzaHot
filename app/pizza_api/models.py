@@ -5,8 +5,7 @@ from django.db.models.signals import pre_delete
 class Pizza(models.Model):
     name = models.CharField(max_length=60, unique=True)
     toppings = models.ManyToManyField("Toppings", max_length=60)
-    #
-    # related_name="toppings"
+
     def __str__(self):
         return self.name, self.toppings
 
@@ -16,8 +15,3 @@ class Toppings(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# class PizzaToppings(models.Model):
-#     toppings = models.ForeignKey(Toppings, on_delete=models.CASCADE)
-#     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
