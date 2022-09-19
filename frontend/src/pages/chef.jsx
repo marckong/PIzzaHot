@@ -95,7 +95,7 @@ export default function Owner() {
                   </th>
                   <th
                     scope='col'
-                    className='px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500'
+                    className='text-center px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500'
                   >
                     Toppings
                   </th>
