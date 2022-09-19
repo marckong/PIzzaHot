@@ -15,7 +15,7 @@ from drf_spectacular.utils import (
             OpenApiParameter(
                 "pizzas",
                 OpenApiTypes.STR,
-                description="Comma separated list of tag IDs to filter",
+                description="Comma separated list of pizza IDs to filter",
             )
         ]
     )
