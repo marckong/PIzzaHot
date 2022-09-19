@@ -79,7 +79,7 @@ export default function Owner() {
         </Link>
       </div>
       {displayDelete && (
-        <p className='text-red-500'>Topping deleted successfully.</p>
+        <p className='text-red-500'>Pizza deleted successfully.</p>
       )}
       <div className='-my-2 overflow-x-auto'>
         <div className='inline-block py-2 align-middle sm:px-6 lg:px-8'>
@@ -126,7 +126,6 @@ export default function Owner() {
                       </td>
                       <td className='whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900'>
                         {toppingsFromPizza(pizza)}
-                        {/* {pizza.toppings} */}
                       </td>
                       <td className='whitespace-nowrap px-6 py-4 text-sm text-gray-500'>
                         <Link href={`/pizza/${pizza.id}`}>
