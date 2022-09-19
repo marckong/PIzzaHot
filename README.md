@@ -26,16 +26,29 @@ Technical specifications:
 ### API walkthrough
 
 Owner/Toppings:
-_ Create new topping /create
-_ Edit topping /<pk:id>
-_ View/get individual topping /<pk:id>
-_ Delete topping /<pk:id>/delete \* No duplicate toppings allowed
+
+* Create new topping /create
+
+* Edit topping /<pk:id>
+
+* View/get individual topping /<pk:id>
+
+* Delete topping /<pk:id>/delete
+
+* No duplicate toppings allowed
 
 Chef/Pizza:
-_ Create new pizza /create
-_ Edit pizza name || toppings /<pk:id>
-_ View/get individual pizza /<pk:id>
-_ Delete pizza /<pk:id>/delete \* No duplicate pizzas allowed
+
+* Create new pizza /create
+
+* Edit pizza name or toppings /<pk:id>
+
+* View/get individual pizza /<pk:id>
+
+* Delete pizza /<pk:id>/delete
+
+* No duplicate pizzas allowed
+
 
 ## Local Install
 
